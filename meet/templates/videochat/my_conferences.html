@@ -10,9 +10,9 @@
             <p class="card-text">{{ c.description }}</p>
             <p class="card-text"><small class="text-muted">Початок: {{ c.start_time }}</small></p>
             <a href="{% url 'join_conference' c.room_name %}" class="btn btn-primary">Приєднатися</a>
-            <a href="" class="btn btn-secondary">Редагувати</a>
+            <a href="{% url 'edit_conference' c.room_name %}" class="btn btn-secondary">Редагувати</a>
             <a href="" class="btn btn-secondary">Запросити</a>
-            <a href="" class="btn btn-danger">Видалити</a>
+            <a href="{% url 'delete_conference' c.room_name %}" class="btn btn-danger">Видалити</a>
         </div>    
     </div>
     {% empty %}

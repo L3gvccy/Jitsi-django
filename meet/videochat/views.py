@@ -24,7 +24,7 @@ def create_conference(request):
         )
         conference.save()
         messages.success(request, "Конференцію створено успішно!")
-        return redirect('/')
+        return redirect('my_conferences')
 
     return render(request, "videochat/create_conference.html")
 
@@ -40,3 +40,22 @@ def join_conference(request, room_name):
         return redirect('/')
 
     return render(request, "videochat/call.html", {"conference": conference})
+
+def edit_conference(request, room_name):
+    conference = Conference.objects.get(room_name=room_name)
+
+    if request.method == 'POST':
+        conference.title = request.POST.get('title')
+        conference.description = request.POST.get('description')
+        conference.start_time = request.POST.get('start_time')
+        conference.save()
+        messages.success(request, "Конференцію оновлено успішно!")
+        return redirect('my_conferences')
+
+    return render(request, "videochat/edit_conference.html", {"conference": conference})
+
+def delete_conference(request, room_name):
+    conference = Conference.objects.get(room_name=room_name)
+    conference.delete()
+    messages.success(request, "Конференцію видалено успішно!")
+    return redirect('my_conferences')
