@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Видеозвонок</h1>
-    <iframe
-        src="https://meet.jit.si/{{ room_name }}"
-        style="height: 700px; width: 100%; border: 0;"
-        allow="camera; microphone; fullscreen; display-capture"
-    ></iframe>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}{{ conference.title }}{% endblock %}
+{% load static %}
+{% block content %}
+    <div class="bg-dark border-top border-light">
+        <h2 class="text-center text-light mt-2">{{ conference.title }}</h2>
+        <p class="text-light text-center">Огранізатор: {{ conference.created_by.get_full_name }}</p>
+        <iframe
+            src="https://meet.jit.si/{{ conference.room_name }}"
+            style="height: calc(100vh - 160px); width: 100%; border: 0;"
+            allow="camera; microphone; fullscreen; display-capture"
+        ></iframe>
+    </div>
+{% endblock %}

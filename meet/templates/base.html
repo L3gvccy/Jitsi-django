@@ -17,14 +17,14 @@
                     <ul class="navbar-nav ms-auto">
                         {% if user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="btn btn-outline-primary text-light me-2 px-3" href="">+</a>
+                                <a class="btn btn-outline-primary text-light me-2 px-3" href="{% url 'create_conference' %}">+</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="btn btn-primary px-3 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ user.username }}
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="">Мої конференції</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'my_conferences' %}">Мої конференції</a></li>
                                     <li><a class="dropdown-item" href="">Мої запрощення</a></li>
                                     <hr class="dropdown-divider">
                                     <li><a class="dropdown-item" href="{% url 'logout' %}">Вихід</a></li>

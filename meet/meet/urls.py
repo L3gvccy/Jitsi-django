@@ -22,5 +22,5 @@ urlpatterns = [
     path('', main_page, name='main_page'),
     path('account/', include('account.urls')),
     path('admin/', admin.site.urls),
-    path('meeting/', include('videochat.urls')),
+    path('conference/', include('videochat.urls')),
 ]
