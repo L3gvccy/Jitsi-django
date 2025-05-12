@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Вхід{% endblock %}
+{% block content %}
+<div class="container d-flex flex-column justify-content-center align-items-center">
+    <div class="border p-4 rounded mt-4" style="min-width: 400px; max-width: 600px;">
+        <h2 class="text-center mb-4">Вхід</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Логін</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Пароль</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+                {% if err %} 
+                <p class="text-danger">
+                    {{ err }}
+                </p>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Увійти</button>
+        </form>
+    </div>
+    
+</div>
+{% endblock %}
