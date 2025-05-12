@@ -4,7 +4,7 @@
 <div class="container d-flex flex-column justify-content-center align-items-center">
     <div class="border p-4 rounded mt-4" style="min-width: 400px; max-width: 600px;">
         <h2 class="text-center mb-4">Вхід</h2>
-        <form method="post">
+        <form method="post" class="mb-4">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="username" class="form-label">Логін</label>
@@ -21,6 +21,7 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Увійти</button>
         </form>
+        <p class="text-center mb-0">Не маєете акаунту? <a href="{% url 'register' %}">Зареєструватись</a></p>
     </div>
     
 </div>

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Реєстрація{% endblock %}
+{% block content %}
+<div class="container d-flex flex-column justify-content-center align-items-center">
+    <div class="border p-4 rounded mt-4" style="min-width: 400px; max-width: 600px;">
+        <h2 class="text-center mb-4">Реєстрація</h2>
+        <form method="post" class="mb-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Логін</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+                {% if username_err %} 
+                <p class="text-danger">
+                    {{ username_err }}
+                </p>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Пароль</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+                {% if pass_err %} 
+                <p class="text-danger">
+                    {{ pass_err }}
+                </p>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="confirm_pass" class="form-label">Повтор паролю</label>
+                <input type="password" class="form-control" id="confirm_pass" name="confirm_pass" required>
+                {% if pass_err %} 
+                <p class="text-danger">
+                    {{ pass_err }}
+                </p>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="lastname" class="form-label">Прізвище</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" required>
+            </div>
+            <div class="mb-3">
+                <label for="firstname" class="form-label">Ім'я</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Увійти</button>
+        </form>
+        <p class="text-center mb-0">Вже маєете акаунт? <a href="{% url 'login' %}">Увійти</a></p>
+    </div>
+    
+</div>
+{% endblock %}
