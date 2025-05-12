@@ -6,8 +6,6 @@ from django.contrib import messages, auth
 
 # Create your views here.
 def main_page(request):
-    auth.logout(request)
-    messages.success(request, "Ви успішно вийшли з акаунту!")
     return render(request, 'account/main_page.html')
 
 def login(request):
@@ -35,23 +33,9 @@ def register(request):
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
 
-        context = {
-            'username': username,
-            'lastname': lastname,
-            'firstname': firstname
-        }
-
         if password != confirm_pass:
-            context['pass_err'] = 'Введені паролі не співпадають'
-            return render(request, 'account/register.html', context)
-        
-        if len(password) < 3:
-            context['pass_err'] = 'Пароль має складатись мінімум з 3 символів'
-            return render(request, 'account/register.html', context)
-        
-        if User.objects.filter(username = username).exists():
-            context['username_err'] = 'Користувач з таким логіном вже існує'
-            return render(request, 'account/register.html', context)
+            messages.error(request, "Паролі не співпадають.")
+            return
 
         user = User.objects.create_user(
             username=username,
@@ -66,3 +50,7 @@ def register(request):
     
     return render(request, 'account/register.html')
 
+def logout(request):
+    auth.logout(request)
+    messages.success(request, "Ви успішно вийшли з акаунту!")
+    return redirect('/')
