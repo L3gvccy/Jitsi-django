@@ -18,9 +18,23 @@ def register(request):
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
 
+        context = {
+            'username': username,
+            'lastname': lastname,
+            'firstname': firstname
+        }
+
         if password != confirm_pass:
-            messages.error(request, "Паролі не співпадають.")
-            return
+            context['pass_err'] = 'Введені паролі не співпадають'
+            return render(request, 'account/register.html', context)
+        
+        if len(password) < 3:
+            context['pass_err'] = 'Пароль має складатись мінімум з 3 символів'
+            return render(request, 'account/register.html', context)
+        
+        if User.objects.filter(username = login).exists():
+            context['login_err'] = 'Користувач з таким логіном вже існує'
+            return render(request, 'account/register.html', context)
 
         user = User.objects.create_user(
             username=username,
