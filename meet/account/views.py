@@ -32,8 +32,8 @@ def register(request):
             context['pass_err'] = 'Пароль має складатись мінімум з 3 символів'
             return render(request, 'account/register.html', context)
         
-        if User.objects.filter(username = login).exists():
-            context['login_err'] = 'Користувач з таким логіном вже існує'
+        if User.objects.filter(username = username).exists():
+            context['username_err'] = 'Користувач з таким логіном вже існує'
             return render(request, 'account/register.html', context)
 
         user = User.objects.create_user(
