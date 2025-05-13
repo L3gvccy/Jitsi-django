@@ -23,4 +23,5 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('admin/', admin.site.urls),
     path('conference/', include('videochat.urls')),
+    path('invite/', include('invite.urls')),
 ]

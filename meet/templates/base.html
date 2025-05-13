@@ -27,6 +27,8 @@
                                     {{ user.username }}
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li class="dropdown-item-text">Вітаємо, {{ user.username }}!</li>
+                                    <hr class="dropdown-divider">
                                     <li><a class="dropdown-item" href="{% url 'my_conferences' %}">Мої конференції</a></li>
                                     <li><a class="dropdown-item" href="">Мої запрощення</a></li>
                                     <hr class="dropdown-divider">
