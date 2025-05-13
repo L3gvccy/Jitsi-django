@@ -3,6 +3,7 @@ from .models import Invite
 from videochat.models import Conference
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect
 
 # Create your views here.
 def create_invite(request, room_name):
@@ -44,3 +45,17 @@ def my_invites(request):
     }
     
     return render(request, 'invite/my_invites.html', context)
+
+def reject_invite(request, invite_id):
+    invite = get_object_or_404(Invite, id=invite_id)
+
+    if invite.invited_user == request.user:
+        invite.delete()
+        messages.success(request, "Запрошення успішно відхилине.")
+        return redirect('my_invites')
+    elif invite.invited_by == request.user:
+        invite.delete()
+        messages.success(request, "Запрошення успішно скасоване.")
+        return redirect('my_invites')
+    else:
+        return messages.success(request, "У вас немає прав скасувати це запрошення!")

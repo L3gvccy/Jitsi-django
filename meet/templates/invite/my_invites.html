@@ -65,7 +65,7 @@
                         <p class="card-text mb-1">Автор конференції: {{ invite.invited_by.get_full_name }}</p>
                         <p class="card-text mb-2"><small class="text-muted">Початок: {{ invite.conference.start_time }}</small></p>
                         <a href="{% url 'join_conference' invite.conference.room_name %}" class="btn btn-primary">Приєднатися</a>
-                        <a href="" class="btn btn-danger">Відхилити</a>
+                        <a href="{% url 'reject_invite' invite.id %}" onclick="return confirmMsg('Ви точно бажаєте відхилити запрошення?')" class="btn btn-danger">Відхилити</a>
                     </div>    
                 </div>
                 {% empty %}
@@ -81,7 +81,7 @@
                         <p class="card-text mb-1">Запрошено користувача: {{ invite.invited_user.get_full_name }}</p>
                         <p class="card-text mb-2"><small class="text-muted">Початок: {{ invite.conference.start_time }}</small></p>
                         <a href="{% url 'join_conference' invite.conference.room_name %}" class="btn btn-primary">Приєднатися</a>
-                        <a href="" class="btn btn-danger">Скасувати</a>
+                        <a href="{% url 'reject_invite' invite.id %}" onclick="return confirmMsg('Ви точно бажаєте скасувати запрошення?')" class="btn btn-danger">Скасувати</a>
                     </div>    
                 </div>
                 {% empty %}

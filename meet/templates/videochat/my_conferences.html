@@ -13,7 +13,7 @@
             <a href="{% url 'join_conference' c.room_name %}" class="btn btn-primary">Приєднатися</a>
             <a href="{% url 'edit_conference' c.room_name %}" class="btn btn-secondary">Редагувати</a>
             <a href="{% url 'create_invite' c.room_name %}" class="btn btn-secondary">Запросити</a>
-            <a href="{% url 'delete_conference' c.room_name %}" class="btn btn-danger">Видалити</a>
+            <a href="{% url 'delete_conference' c.room_name %}" onclick="return confirmMsg('Ви точно бажаєте видалити конференцію?')" class="btn btn-danger">Видалити</a>
         </div>    
     </div>
     {% empty %}
