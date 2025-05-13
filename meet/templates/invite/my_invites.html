@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}Мої запрошення{% endblock %}
+{% block content %}
+
+<style>
+.custom-tabs {
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.custom-tabs .nav-link {
+    color: #495057;
+    border: none;
+    padding: 15px 25px;
+    transition: all 0.3s ease;
+}
+
+.custom-tabs .nav-link.active {
+    color: #fff;
+    background-color: #007bff;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+}
+
+.custom-tabs .tab-content {
+    padding: 30px;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Мої запрошення</h2>
+    <div class="custom-tabs">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="recieved-tab" data-bs-toggle="tab" data-bs-target="#recieved" type="button" role="tab" aria-controls="recieved" aria-selected="true">Отримані</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="sent-tab" data-bs-toggle="tab" data-bs-target="#sent" type="button" role="tab" aria-controls="sent" aria-selected="false">Надіслані</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="recieved" role="tabpanel" aria-labelledby="recieved-tab">
+                {% for invite in recieved %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ invite.conference.title }}</h5>
+                        <p class="card-text mb-1">{{ invite.conference.description }}</p>
+                        <p class="card-text mb-1">Автор конференції: {{ invite.invited_by.get_full_name }}</p>
+                        <p class="card-text mb-2"><small class="text-muted">Початок: {{ invite.conference.start_time }}</small></p>
+                        <a href="{% url 'join_conference' invite.conference.room_name %}" class="btn btn-primary">Приєднатися</a>
+                        <a href="" class="btn btn-danger">Відхилити</a>
+                    </div>    
+                </div>
+                {% empty %}
+                <p>Немає отриманих запрошень</p>
+                {% endfor %}
+            </div>
+            <div class="tab-pane fade" id="sent" role="tabpanel" aria-labelledby="sent-tab">
+                {% for invite in sent %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ invite.conference.title }}</h5>
+                        <p class="card-text mb-1">{{ invite.conference.description }}</p>
+                        <p class="card-text mb-1">Запрошено користувача: {{ invite.invited_user.get_full_name }}</p>
+                        <p class="card-text mb-2"><small class="text-muted">Початок: {{ invite.conference.start_time }}</small></p>
+                        <a href="{% url 'join_conference' invite.conference.room_name %}" class="btn btn-primary">Приєднатися</a>
+                        <a href="" class="btn btn-danger">Скасувати</a>
+                    </div>    
+                </div>
+                {% empty %}
+                <p>Немає надісланих запрошень</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

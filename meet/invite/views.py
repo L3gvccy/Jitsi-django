@@ -33,3 +33,14 @@ def create_invite(request, room_name):
             context['err'] = "Користувача не знайдено."
             return render(request, 'invite/create_invite.html', context)
     return render(request, 'invite/create_invite.html', context)
+
+def my_invites(request):
+    recieved = Invite.objects.filter(invited_user=request.user)
+    sent = Invite.objects.filter(invited_by=request.user)
+    
+    context = {
+        'recieved': recieved,
+        'sent': sent,
+    }
+    
+    return render(request, 'invite/my_invites.html', context)
