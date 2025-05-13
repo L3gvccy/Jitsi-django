@@ -28,6 +28,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li class="dropdown-item-text">Вітаємо, {{ user.username }}!</li>
+                                    <li><a class="dropdown-item" href="{% url 'profile_user' %}">Профіль</a></li>
                                     <hr class="dropdown-divider">
                                     <li><a class="dropdown-item" href="{% url 'my_conferences' %}">Мої конференції</a></li>
                                     <li><a class="dropdown-item" href="{% url 'my_invites' %}">Мої запрощення</a></li>
