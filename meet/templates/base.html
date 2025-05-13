@@ -17,7 +17,10 @@
                     <ul class="navbar-nav ms-auto">
                         {% if user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="btn btn-outline-primary text-light me-2 px-3" href="{% url 'create_conference' %}">+</a>
+                                <a class="btn btn-outline-primary text-light me-2 px-3" href="{% url 'create_conference' %}">Створити</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-primary text-light me-2 px-3" href="{% url 'direct_join_conference' %}">Приєднатись</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="btn btn-primary px-3 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

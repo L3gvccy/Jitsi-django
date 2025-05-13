@@ -32,10 +32,21 @@ def my_conferences(request):
     conferences = Conference.objects.filter(created_by=request.user)
     return render(request, "videochat/my_conferences.html", {"conferences": conferences})
 
+def direct_join_conference(request):
+    if request.method == 'POST':
+        room_name = request.POST.get('room_name')
+        try:
+            conference = Conference.objects.get(room_name=room_name)
+            return redirect('join_conference', room_name=room_name)
+        except Conference.DoesNotExist:
+            messages.error(request, "Конференцію не знайдено.")
+            return redirect('my_conferences')
+    return render(request, "videochat/direct_join.html")
+
 def join_conference(request, room_name):
     try:
         conference = Conference.objects.get(room_name=room_name)
-    except conference.DoesNotExist:
+    except Conference.DoesNotExist:
         messages.error(request, "Конференція не знайдена.")
         return redirect('/')
 

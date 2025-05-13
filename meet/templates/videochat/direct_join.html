@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Приєднання до конференції{% endblock %}
+{% block content %}
+
+<div class="container d-flex flex-column justify-content-center align-items-center">
+    <div class="border p-4 rounded mt-4" style="min-width: 400px; max-width: 600px;">
+        <h2 class="text-center mb-4">Приєднатись до конференції</h2>
+        <form method="post" class="mb-4">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="room_name" class="form-label">Ідентифікатор конференції</label>
+                <input type="text" class="form-control" id="room_name" name="room_name" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Приєднатись</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
