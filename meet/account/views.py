@@ -4,10 +4,22 @@ from django.contrib import messages
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
+from videochat.models import Conference
+from invite.models import Invite
 
 # Create your views here.
 def main_page(request):
-    return render(request, 'account/main_page.html')
+    if request.user.is_authenticated:
+        conference_count = Conference.objects.filter(created_by=request.user).count()
+        invitation_count = Invite.objects.filter(invited_user=request.user).count()
+    else:
+        conference_count = 0
+        invitation_count = 0
+    
+    return render(request, 'account/main_page.html', {
+        'conference_count': conference_count,
+        'invitation_count': invitation_count
+    })
 
 def login(request):
     if request.method == 'POST':
