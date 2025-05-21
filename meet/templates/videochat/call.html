@@ -2,13 +2,41 @@
 {% block title %}{{ conference.title }}{% endblock %}
 {% load static %}
 {% block content %}
+    <script src="https://meet.jit.si/external_api.js"></script>
+
     <div class="bg-dark border-top border-light">
         <h2 class="text-center text-light mt-2">{{ conference.title }}</h2>
         <p class="text-light text-center">Огранізатор: {{ conference.created_by.get_full_name }}</p>
-        <iframe
-            src="https://meet.jit.si/{{ conference.room_name }}"
-            style="height: calc(100vh - 160px); width: 100%; border: 0;"
-            allow="camera; microphone; fullscreen; display-capture"
-        ></iframe>
+
+        <div id="jitsi-container" style="height: calc(100vh - 160px); width: 100%;"></div>
     </div>
+
+    <script>
+        const roomName = "{{ conference.room_name }}";
+        const domain = "meet.jit.si";
+        const options = {
+            roomName: roomName,
+            width: "100%",
+            height: window.innerHeight - 160,
+            parentNode: document.querySelector('#jitsi-container'),
+            configOverwrite: {
+                startWithAudioMuted: false,
+                startWithVideoMuted: false,
+            },
+            interfaceConfigOverwrite: {
+                SHOW_JITSI_WATERMARK: false,
+                SHOW_BRAND_WATERMARK: false,
+            },
+            userInfo: {
+                displayName: "{{ request.user.get_full_name }}"
+            }
+        };
+
+        const api = new JitsiMeetExternalAPI(domain, options);
+
+        api.addEventListener('videoConferenceJoined', () => {
+            console.log('Joined the conference!');
+        });
+    </script>
+    
 {% endblock %}
